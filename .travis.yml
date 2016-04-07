@@ -16,14 +16,14 @@ env:
 
 install:
   - if [ "$VECTOR_COPY_ELISION_LEVEL" = "joinwithbinaryexpressions" ] && [ "$CC" = "gcc" ]; then
-      export MAKE_JOBS=1;
+      export MAKE_JOBS=2;
     else
       export MAKE_JOBS=2;
     fi
   - export TEST_JOBS=2;
   - if [ "$CC" = "gcc" ]; then
-      export CC="gcc-4.9";
-      export CXX="g++-4.9";
+      export CC="gcc-5";
+      export CXX="g++-5";
     elif [ "$CC" = "clang" ]; then
       export CC="clang-3.7";
       export CXX="clang++-3.7";
@@ -74,8 +74,8 @@ addons:
       - ubuntu-toolchain-r-test
       - llvm-toolchain-precise-3.7
     packages:
-      - gcc-4.9
-      - g++-4.9
+      - gcc-5
+      - g++-5
       - clang-3.7
       - binutils-gold
       - libprotobuf-dev
