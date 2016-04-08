@@ -143,7 +143,7 @@ ColumnVector* ScalarAttribute::getAllValuesForJoin(
 
   return InvokeOnValueAccessorNotAdapter(
       accessor,
-      [&attr_id, &result_type, &using_left_relation, &accessor](auto *accessor) -> ColumnVector* {  // NOLINT(build/c++11)
+      [&attr_id, &result_type, &using_left_relation, &accessor, &joined_tuple_ids](auto *accessor) -> ColumnVector* {  // NOLINT(build/c++11)
     if (NativeColumnVector::UsableForType(result_type)) {
       NativeColumnVector *result = new NativeColumnVector(result_type,
                                                           joined_tuple_ids.size());
