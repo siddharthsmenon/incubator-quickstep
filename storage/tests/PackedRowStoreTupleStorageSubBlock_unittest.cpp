@@ -530,10 +530,10 @@ TEST(PackedRowStoreTupleStorageSubBlockNullTypeTest, NullTypeTest) {
 
 INSTANTIATE_TEST_CASE_P(WithAndWithoutNullableAttributes,
                         PackedRowStoreTupleStorageSubBlockTest,
-                        ::testing::Bool());
+                        ::testing::Bool(),);
 
 INSTANTIATE_TEST_CASE_P(WithAndWithoutNullableAttributes,
                         PackedRowStoreTupleStorageSubBlockDeathTest,
-                        ::testing::Bool());
+                        ::testing::Bool(),);
 
 }  // namespace quickstep

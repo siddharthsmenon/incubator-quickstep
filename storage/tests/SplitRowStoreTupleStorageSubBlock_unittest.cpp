@@ -979,6 +979,6 @@ INSTANTIATE_TEST_CASE_P(AttributeTypeFeatures,
                         ::testing::Values(AttributeTypeFeatures::kNone,
                                           AttributeTypeFeatures::kNullable,
                                           AttributeTypeFeatures::kVariableLength,
-                                          AttributeTypeFeatures::kNullableAndVariableLength));
+                                          AttributeTypeFeatures::kNullableAndVariableLength),);
 
 }  // namespace quickstep

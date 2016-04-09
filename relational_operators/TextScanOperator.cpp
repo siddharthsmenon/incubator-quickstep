@@ -74,8 +74,9 @@ static bool ValidateTextScanSplitBlobSize(const char *flagname,
   return true;
 }
 
-static const bool text_scan_split_blob_size_dummy = gflags::RegisterFlagValidator(
-    &FLAGS_textscan_split_blob_size, &ValidateTextScanSplitBlobSize);
+static const volatile bool text_scan_split_blob_size_dummy =
+    gflags::RegisterFlagValidator(&FLAGS_textscan_split_blob_size,
+                                  &ValidateTextScanSplitBlobSize);
 
 namespace {
 

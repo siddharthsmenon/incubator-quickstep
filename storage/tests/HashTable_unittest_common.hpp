@@ -2103,7 +2103,6 @@ REGISTER_TYPED_TEST_CASE_P(NonTriviallyDestructibleValueHashTableTest,
                            CharKeyDestroyValueTest,
                            VarCharKeyDestroyValueTest,
                            CompositeKeyDestroyValueTest);
-
 }  // namespace quickstep
 
 // Macro to automatically instantiate tests for all the different flavors of

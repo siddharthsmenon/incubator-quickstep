@@ -1629,10 +1629,10 @@ TEST(CompressedColumnStoreTupleStorageSubBlockNullTypeTest, NullTypeTest) {
 
 INSTANTIATE_TEST_CASE_P(WithAndWithoutNullableAttributes,
                         CompressedColumnStoreTupleStorageSubBlockTest,
-                        ::testing::Bool());
+                        ::testing::Bool(),);
 
 INSTANTIATE_TEST_CASE_P(WithAndWithoutNullableAttributes,
                         CompressedColumnStoreTupleStorageSubBlockDeathTest,
-                        ::testing::Bool());
+                        ::testing::Bool(),);
 
 }  // namespace quickstep

@@ -92,7 +92,7 @@ ColumnVector* ScalarAttribute::getAllValues(ValueAccessor *accessor,
   const Type &result_type = attribute_.getType();
   return InvokeOnValueAccessorMaybeTupleIdSequenceAdapter(
       accessor,
-      [&attr_id, &result_type, &accessor](auto *accessor) -> ColumnVector* {  // NOLINT(build/c++11)
+      [&attr_id, &result_type](auto *accessor) -> ColumnVector* {  // NOLINT(build/c++11)
     if (NativeColumnVector::UsableForType(result_type)) {
       NativeColumnVector *result = new NativeColumnVector(result_type,
                                                           accessor->getNumTuples());
@@ -143,7 +143,7 @@ ColumnVector* ScalarAttribute::getAllValuesForJoin(
 
   return InvokeOnValueAccessorNotAdapter(
       accessor,
-      [&attr_id, &result_type, &using_left_relation, &accessor, &joined_tuple_ids](auto *accessor) -> ColumnVector* {  // NOLINT(build/c++11)
+      [&attr_id, &result_type, &using_left_relation, &joined_tuple_ids](auto *accessor) -> ColumnVector* {  // NOLINT(build/c++11)
     if (NativeColumnVector::UsableForType(result_type)) {
       NativeColumnVector *result = new NativeColumnVector(result_type,
                                                           joined_tuple_ids.size());
