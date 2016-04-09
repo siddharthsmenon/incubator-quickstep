@@ -1214,10 +1214,12 @@ TEST_P(HashJoinOperatorTest, CompositeKeyHashJoinWithResidualPredicateTest) {
   db_->dropRelationById(output_relation_id);
 }
 
-INSTANTIATE_TEST_CASE_P(HashTableImplType,
-                        HashJoinOperatorTest,
-                        ::testing::Values(HashTableImplType::kLinearOpenAddressing,
-                                          HashTableImplType::kSeparateChaining,
-                                          HashTableImplType::kSimpleScalarSeparateChaining));
+INSTANTIATE_TEST_CASE_P(
+    HashTableImplType, HashJoinOperatorTest,
+    ::testing::Values(
+        HashTableImplType::kLinearOpenAddressing,
+        HashTableImplType::kSeparateChaining,
+        HashTableImplType::
+            kSimpleScalarSeparateChaining),);  // NOLINT(whitespace/comma)
 
 }  // namespace quickstep
