@@ -58,7 +58,7 @@ class SqlParserTestRunner : public TextBasedTestRunner {
   DISALLOW_COPY_AND_ASSIGN(SqlParserTestRunner);
 };
 
-QUICKSTEP_GENERATE_TEXT_TEST(PARSE_SQL_TEST);
+QUICKSTEP_GENERATE_TEXT_TEST(PARSE_SQL_TEST,);  // NOLINT(whitespace/comma)
 
 }  // namespace quickstep
 
