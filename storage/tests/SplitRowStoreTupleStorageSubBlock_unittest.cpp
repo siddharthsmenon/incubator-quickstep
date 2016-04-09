@@ -973,12 +973,12 @@ TEST(SplitRowStoreTupleStorageSubBlockNullTypeTest, NullTypeTest) {
   }
 }
 
-
-INSTANTIATE_TEST_CASE_P(AttributeTypeFeatures,
-                        SplitRowStoreTupleStorageSubBlockTest,
-                        ::testing::Values(AttributeTypeFeatures::kNone,
-                                          AttributeTypeFeatures::kNullable,
-                                          AttributeTypeFeatures::kVariableLength,
-                                          AttributeTypeFeatures::kNullableAndVariableLength));
+INSTANTIATE_TEST_CASE_P(
+    AttributeTypeFeatures, SplitRowStoreTupleStorageSubBlockTest,
+    ::testing::Values(
+        AttributeTypeFeatures::kNone, AttributeTypeFeatures::kNullable,
+        AttributeTypeFeatures::kVariableLength,
+        AttributeTypeFeatures::
+            kNullableAndVariableLength),);  // NOLINT(whitespace/comma)
 
 }  // namespace quickstep

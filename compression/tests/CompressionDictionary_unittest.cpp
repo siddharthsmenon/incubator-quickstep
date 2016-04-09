@@ -2274,10 +2274,10 @@ TEST_P(CompressionDictionaryTest, VarCharKeyLimitCodesForComparisonDifferentType
 
 INSTANTIATE_TEST_CASE_P(WithAndWithoutNullValue,
                         CompressionDictionaryTest,
-                        ::testing::Bool());
+                        ::testing::Bool(),);  // NOLINT(whitespace/comma)
 
 INSTANTIATE_TEST_CASE_P(WithAndWithoutNullValue,
                         CompressionDictionaryDeathTest,
-                        ::testing::Bool());
+                        ::testing::Bool(),);  // NOLINT(whitespace/comma)
 
 }  // namespace quickstep
