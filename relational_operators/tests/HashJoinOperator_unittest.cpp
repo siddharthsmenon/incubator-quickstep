@@ -1218,6 +1218,6 @@ INSTANTIATE_TEST_CASE_P(HashTableImplType,
                         HashJoinOperatorTest,
                         ::testing::Values(HashTableImplType::kLinearOpenAddressing,
                                           HashTableImplType::kSeparateChaining,
-                                          HashTableImplType::kSimpleScalarSeparateChaining),);
+                                          HashTableImplType::kSimpleScalarSeparateChaining));
 
 }  // namespace quickstep

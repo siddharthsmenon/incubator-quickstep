@@ -506,108 +506,136 @@ void PartitionAwareInsertDestination::insertTupleInBatch(const Tuple &tuple) {
 }
 
 void PartitionAwareInsertDestination::bulkInsertTuples(ValueAccessor *accessor, bool always_mark_full) {
-  const std::size_t num_partitions = partition_scheme_header_->getNumPartitions();
-  const attribute_id partition_attribute_id = partition_scheme_header_->getPartitionAttributeId();
+  const std::size_t num_partitions =
+      partition_scheme_header_->getNumPartitions();
+  const attribute_id partition_attribute_id =
+      partition_scheme_header_->getPartitionAttributeId();
 
   InvokeOnAnyValueAccessor(
       accessor,
-      [this, &partition_attribute_id, &always_mark_full, &num_partitions](auto *accessor) -> void {  // NOLINT(build/c++11)
-    std::vector<std::unique_ptr<TupleIdSequence>> partition_membership;
-    partition_membership.resize(num_partitions);
+      [this, &partition_attribute_id, &always_mark_full,
+       &num_partitions](auto *accessor) -> void {  // NOLINT(build/c++11)
+        std::vector<std::unique_ptr<TupleIdSequence>> partition_membership;
+        partition_membership.resize(num_partitions);
 
-    // Create a tuple-id sequence for each partition.
-    for (std::size_t partition = 0; partition < num_partitions; ++partition) {
-      partition_membership[partition].reset(new TupleIdSequence(accessor->getEndPosition()));
-    }
-
-    // Iterate over ValueAccessor for each tuple,
-    // set a bit in the appropriate TupleIdSequence.
-    accessor->beginIteration();
-    while (accessor->next()) {
-      TypedValue attr_val = accessor->getTypedValue(partition_attribute_id);
-      partition_membership[partition_scheme_header_->getPartitionId(attr_val)]
-          ->set(accessor->getCurrentPosition(), true);
-    }
-
-    // For each partition, create an adapter around Value Accessor and
-    // TupleIdSequence.
-    std::vector<std::unique_ptr<typename std::remove_pointer<
-        decltype(accessor->createSharedTupleIdSequenceAdapter(*partition_membership.front()))>::type>> adapter;
-    adapter.resize(num_partitions);
-    for (std::size_t partition = 0; partition < num_partitions; ++partition) {
-      adapter[partition].reset(accessor->createSharedTupleIdSequenceAdapter(*partition_membership[partition]));
-    }
-
-    // Bulk-insert into a block belonging to the partition.
-    for (std::size_t partition = 0; partition < num_partitions; ++partition) {
-      adapter[partition]->beginIteration();
-      while (!adapter[partition]->iterationFinished()) {
-        MutableBlockReference output_block = this->getBlockForInsertionInPartition(partition);
-        if (output_block->bulkInsertTuples(adapter[partition].get()) == 0) {
-          this->returnBlockInPartition(std::move(output_block), true, partition);
-        } else {
-          // Bulk insert into output_block was successful. output_block
-          // will be rebuilt when there won't be any more insertions to it.
-          this->returnBlockInPartition(std::move(output_block),
-                                       always_mark_full || !adapter[partition]->iterationFinished(),
-                                       partition);
+        // Create a tuple-id sequence for each partition.
+        for (std::size_t partition = 0; partition < num_partitions;
+             ++partition) {
+          partition_membership[partition].reset(
+              new TupleIdSequence(accessor->getEndPosition()));
         }
-      }
-    }
-  });
+
+        // Iterate over ValueAccessor for each tuple,
+        // set a bit in the appropriate TupleIdSequence.
+        accessor->beginIteration();
+        while (accessor->next()) {
+          TypedValue attr_val = accessor->getTypedValue(partition_attribute_id);
+          partition_membership[partition_scheme_header_->getPartitionId(
+                                   attr_val)]
+              ->set(accessor->getCurrentPosition(), true);
+        }
+
+        // For each partition, create an adapter around Value Accessor and
+        // TupleIdSequence.
+        std::vector<std::unique_ptr<typename std::remove_pointer<decltype(
+            accessor->createSharedTupleIdSequenceAdapter(
+                *partition_membership.front()))>::type>> adapter;
+        adapter.resize(num_partitions);
+        for (std::size_t partition = 0; partition < num_partitions;
+             ++partition) {
+          adapter[partition].reset(accessor->createSharedTupleIdSequenceAdapter(
+              *partition_membership[partition]));
+        }
+
+        // Bulk-insert into a block belonging to the partition.
+        for (std::size_t partition = 0; partition < num_partitions;
+             ++partition) {
+          adapter[partition]->beginIteration();
+          while (!adapter[partition]->iterationFinished()) {
+            MutableBlockReference output_block =
+                this->getBlockForInsertionInPartition(partition);
+            if (output_block->bulkInsertTuples(adapter[partition].get()) == 0) {
+              this->returnBlockInPartition(std::move(output_block), true,
+                                           partition);
+            } else {
+              // Bulk insert into output_block was successful. output_block
+              // will be rebuilt when there won't be any more insertions to it.
+              this->returnBlockInPartition(
+                  std::move(output_block),
+                  always_mark_full || !adapter[partition]->iterationFinished(),
+                  partition);
+            }
+          }
+        }
+      });
 }
 
 void PartitionAwareInsertDestination::bulkInsertTuplesWithRemappedAttributes(
     const std::vector<attribute_id> &attribute_map, ValueAccessor *accessor, bool always_mark_full) {
-  const std::size_t num_partitions = partition_scheme_header_->getNumPartitions();
-  const attribute_id partition_attribute_id = partition_scheme_header_->getPartitionAttributeId();
+  const std::size_t num_partitions =
+      partition_scheme_header_->getNumPartitions();
+  const attribute_id partition_attribute_id =
+      partition_scheme_header_->getPartitionAttributeId();
 
   InvokeOnAnyValueAccessor(
       accessor,
-      [this, &partition_attribute_id, &attribute_map, &always_mark_full, &num_partitions](auto *accessor) -> void {  // NOLINT(build/c++11)
-    std::vector<std::unique_ptr<TupleIdSequence>> partition_membership;
-    partition_membership.resize(num_partitions);
+      [this, &partition_attribute_id, &attribute_map, &always_mark_full,
+       &num_partitions](auto *accessor) -> void {  // NOLINT(build/c++11)
+        std::vector<std::unique_ptr<TupleIdSequence>> partition_membership;
+        partition_membership.resize(num_partitions);
 
-    // Create a tuple-id sequence for each partition.
-    for (std::size_t partition = 0; partition < num_partitions; ++partition) {
-      partition_membership[partition].reset(new TupleIdSequence(accessor->getEndPosition()));
-    }
-
-    // Iterate over ValueAccessor for each tuple,
-    // set a bit in the appropriate TupleIdSequence.
-    accessor->beginIteration();
-    while (accessor->next()) {
-      TypedValue attr_val = accessor->getTypedValue(attribute_map[partition_attribute_id]);
-      partition_membership[partition_scheme_header_->getPartitionId(attr_val)]
-          ->set(accessor->getCurrentPosition(), true);
-    }
-
-    // For each partition, create an adapter around Value Accessor and
-    // TupleIdSequence.
-    std::vector<std::unique_ptr<typename std::remove_pointer<
-        decltype(accessor->createSharedTupleIdSequenceAdapter(*partition_membership.front()))>::type>> adapter;
-    adapter.resize(num_partitions);
-    for (std::size_t partition = 0; partition < num_partitions; ++partition) {
-      adapter[partition].reset(accessor->createSharedTupleIdSequenceAdapter(*partition_membership[partition]));
-    }
-
-    // Bulk-insert into a block belonging to the partition.
-    for (std::size_t partition = 0; partition < num_partitions; ++partition) {
-      adapter[partition]->beginIteration();
-      while (!adapter[partition]->iterationFinished()) {
-        MutableBlockReference output_block = this->getBlockForInsertionInPartition(partition);
-        if (output_block->bulkInsertTuplesWithRemappedAttributes(attribute_map, adapter[partition].get()) == 0) {
-          this->returnBlockInPartition(std::move(output_block), true, partition);
-        } else {
-          // Bulk insert into output_block was successful. output_block
-          // will be rebuilt when there won't be any more insertions to it.
-          this->returnBlockInPartition(std::move(output_block),
-                                       always_mark_full || !adapter[partition]->iterationFinished(),
-                                       partition);
+        // Create a tuple-id sequence for each partition.
+        for (std::size_t partition = 0; partition < num_partitions;
+             ++partition) {
+          partition_membership[partition].reset(
+              new TupleIdSequence(accessor->getEndPosition()));
         }
-      }
-    }
-  });
+
+        // Iterate over ValueAccessor for each tuple,
+        // set a bit in the appropriate TupleIdSequence.
+        accessor->beginIteration();
+        while (accessor->next()) {
+          TypedValue attr_val =
+              accessor->getTypedValue(attribute_map[partition_attribute_id]);
+          partition_membership[partition_scheme_header_->getPartitionId(
+                                   attr_val)]->set(accessor->getCurrentPosition(),
+                                                   true);
+        }
+
+        // For each partition, create an adapter around Value Accessor and
+        // TupleIdSequence.
+        std::vector<std::unique_ptr<typename std::remove_pointer<decltype(
+            accessor->createSharedTupleIdSequenceAdapter(
+                *partition_membership.front()))>::type>> adapter;
+        adapter.resize(num_partitions);
+        for (std::size_t partition = 0; partition < num_partitions;
+             ++partition) {
+          adapter[partition].reset(accessor->createSharedTupleIdSequenceAdapter(
+              *partition_membership[partition]));
+        }
+
+        // Bulk-insert into a block belonging to the partition.
+        for (std::size_t partition = 0; partition < num_partitions;
+             ++partition) {
+          adapter[partition]->beginIteration();
+          while (!adapter[partition]->iterationFinished()) {
+            MutableBlockReference output_block =
+                this->getBlockForInsertionInPartition(partition);
+            if (output_block->bulkInsertTuplesWithRemappedAttributes(
+                    attribute_map, adapter[partition].get()) == 0) {
+              this->returnBlockInPartition(std::move(output_block), true,
+                                           partition);
+            } else {
+              // Bulk insert into output_block was successful. output_block
+              // will be rebuilt when there won't be any more insertions to it.
+              this->returnBlockInPartition(
+                  std::move(output_block),
+                  always_mark_full || !adapter[partition]->iterationFinished(),
+                  partition);
+            }
+          }
+        }
+      });
 }
 
 void PartitionAwareInsertDestination::insertTuplesFromVector(std::vector<Tuple>::const_iterator begin,

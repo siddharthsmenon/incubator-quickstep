@@ -33,7 +33,7 @@
 #define QUICKSTEP_GENERATE_TEXT_TEST(TEST_CASE_NAME)                                           \
     std::unique_ptr<::quickstep::TextBasedTestDriver> test_driver;                             \
     INSTANTIATE_TEST_CASE_P(TEST_CASE_NAME, TextBasedTest,                                     \
-                            ::testing::ValuesIn(*test_driver->populateAndReturnTestCases()),)
+                            ::testing::ValuesIn(*test_driver->populateAndReturnTestCases()))
 
 namespace quickstep {
 

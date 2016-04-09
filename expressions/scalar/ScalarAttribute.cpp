@@ -131,54 +131,59 @@ ColumnVector* ScalarAttribute::getAllValuesForJoin(
     const relation_id right_relation_id,
     ValueAccessor *right_accessor,
     const std::vector<std::pair<tuple_id, tuple_id>> &joined_tuple_ids) const {
-  DCHECK((attribute_.getParent().getID() == left_relation_id)
-         || (attribute_.getParent().getID() == right_relation_id));
+  DCHECK((attribute_.getParent().getID() == left_relation_id) ||
+         (attribute_.getParent().getID() == right_relation_id));
 
   const attribute_id attr_id = attribute_.getID();
   const Type &result_type = attribute_.getType();
 
-  const bool using_left_relation = (attribute_.getParent().getID() == left_relation_id);
-  ValueAccessor *accessor = using_left_relation ? left_accessor
-                                                : right_accessor;
+  const bool using_left_relation =
+      (attribute_.getParent().getID() == left_relation_id);
+  ValueAccessor *accessor =
+      using_left_relation ? left_accessor : right_accessor;
 
   return InvokeOnValueAccessorNotAdapter(
       accessor,
-      [&attr_id, &result_type, &using_left_relation, &joined_tuple_ids](auto *accessor) -> ColumnVector* {  // NOLINT(build/c++11)
-    if (NativeColumnVector::UsableForType(result_type)) {
-      NativeColumnVector *result = new NativeColumnVector(result_type,
-                                                          joined_tuple_ids.size());
-      if (result_type.isNullable()) {
-        for (const std::pair<tuple_id, tuple_id> &joined_pair : joined_tuple_ids) {
-          const void *value = accessor->template getUntypedValueAtAbsolutePosition<true>(
-              attr_id,
-              using_left_relation ? joined_pair.first : joined_pair.second);
-          if (value == nullptr) {
-            result->appendNullValue();
+      [&attr_id, &result_type, &using_left_relation, &joined_tuple_ids](
+          auto *accessor) -> ColumnVector * {  // NOLINT(build/c++11)
+        if (NativeColumnVector::UsableForType(result_type)) {
+          NativeColumnVector *result =
+              new NativeColumnVector(result_type, joined_tuple_ids.size());
+          if (result_type.isNullable()) {
+            for (const std::pair<tuple_id, tuple_id> &joined_pair :
+                 joined_tuple_ids) {
+              const void *value =
+                  accessor->template getUntypedValueAtAbsolutePosition<true>(
+                      attr_id, using_left_relation ? joined_pair.first
+                                                   : joined_pair.second);
+              if (value == nullptr) {
+                result->appendNullValue();
+              } else {
+                result->appendUntypedValue(value);
+              }
+            }
           } else {
-            result->appendUntypedValue(value);
+            for (const std::pair<tuple_id, tuple_id> &joined_pair :
+                 joined_tuple_ids) {
+              result->appendUntypedValue(
+                  accessor->template getUntypedValueAtAbsolutePosition<false>(
+                      attr_id, using_left_relation ? joined_pair.first
+                                                   : joined_pair.second));
+            }
           }
+          return result;
+        } else {
+          IndirectColumnVector *result =
+              new IndirectColumnVector(result_type, joined_tuple_ids.size());
+          for (const std::pair<tuple_id, tuple_id> &joined_pair :
+               joined_tuple_ids) {
+            result->appendTypedValue(accessor->getTypedValueAtAbsolutePosition(
+                attr_id,
+                using_left_relation ? joined_pair.first : joined_pair.second));
+          }
+          return result;
         }
-      } else {
-        for (const std::pair<tuple_id, tuple_id> &joined_pair : joined_tuple_ids) {
-          result->appendUntypedValue(
-              accessor->template getUntypedValueAtAbsolutePosition<false>(
-                  attr_id,
-                  using_left_relation ? joined_pair.first : joined_pair.second));
-        }
-      }
-      return result;
-    } else {
-      IndirectColumnVector *result = new IndirectColumnVector(result_type,
-                                                              joined_tuple_ids.size());
-      for (const std::pair<tuple_id, tuple_id> &joined_pair : joined_tuple_ids) {
-        result->appendTypedValue(
-              accessor->getTypedValueAtAbsolutePosition(
-                  attr_id,
-                  using_left_relation ? joined_pair.first : joined_pair.second));
-      }
-      return result;
-    }
-  });
+      });
 }
 
 }  // namespace quickstep

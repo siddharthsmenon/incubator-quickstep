@@ -795,40 +795,45 @@ void StorageBlock::sortColumn(bool use_input_sequence,
   std::vector<SortReference> refs;
   OrderedTupleIdSequence nulls;
 
-  refs.reserve(use_input_sequence ? sorted_sequence->size() : getTupleStorageSubBlock().numTuples());
+  refs.reserve(use_input_sequence ? sorted_sequence->size()
+                                  : getTupleStorageSubBlock().numTuples());
 
   // TODO(shoban): Refer the TODO in sortColumnHelperValueAccessor() for
   // optimizing for NULL checking.
   ValueAccessor *all_accessor = tuple_store_->createValueAccessor(nullptr);
   InvokeOnValueAccessorNotAdapter(
       all_accessor,
-      [&sort_attr_id, &refs, &nulls, &use_input_sequence, &sorted_sequence, &accessor](auto *all_accessor) -> void {  // NOLINT(build/c++11)
-    if (use_input_sequence) {
-      auto *seq_value_accessor = new OrderedTupleIdSequenceAdapterValueAccessor<
-          typename std::remove_reference<decltype(*all_accessor)>::type>(
-              all_accessor, *sorted_sequence);
-      accessor.reset(seq_value_accessor);
-      seq_value_accessor->beginIteration();
-      while (seq_value_accessor->next()) {
-        const void *value = seq_value_accessor->getUntypedValue(sort_attr_id);
-        if (value) {
-          refs.emplace_back(value, seq_value_accessor->getCurrentPosition());
+      [&sort_attr_id, &refs, &nulls, &use_input_sequence, &sorted_sequence,
+       &accessor](auto *all_accessor) -> void {  // NOLINT(build/c++11)
+        if (use_input_sequence) {
+          auto *seq_value_accessor =
+              new OrderedTupleIdSequenceAdapterValueAccessor<
+                  typename std::remove_reference<decltype(
+                      *all_accessor)>::type>(all_accessor, *sorted_sequence);
+          accessor.reset(seq_value_accessor);
+          seq_value_accessor->beginIteration();
+          while (seq_value_accessor->next()) {
+            const void *value =
+                seq_value_accessor->getUntypedValue(sort_attr_id);
+            if (value) {
+              refs.emplace_back(value,
+                                seq_value_accessor->getCurrentPosition());
+            } else {
+              nulls.emplace_back(seq_value_accessor->getCurrentPosition());
+            }
+          }
         } else {
-          nulls.emplace_back(seq_value_accessor->getCurrentPosition());
+          accessor.reset(all_accessor);
+          while (all_accessor->next()) {
+            const void *value = all_accessor->getUntypedValue(sort_attr_id);
+            if (value) {
+              refs.emplace_back(value, all_accessor->getCurrentPosition());
+            } else {
+              nulls.emplace_back(all_accessor->getCurrentPosition());
+            }
+          }
         }
-      }
-    } else {
-      accessor.reset(all_accessor);
-      while (all_accessor->next()) {
-        const void *value = all_accessor->getUntypedValue(sort_attr_id);
-        if (value) {
-          refs.emplace_back(value, all_accessor->getCurrentPosition());
-        } else {
-          nulls.emplace_back(all_accessor->getCurrentPosition());
-        }
-      }
-    }
-  });
+      });
 
   if (use_input_sequence) {
     if (sort_is_ascending) {
