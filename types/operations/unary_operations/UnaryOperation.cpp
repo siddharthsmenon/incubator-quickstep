@@ -33,6 +33,8 @@ serialization::UnaryOperation UnaryOperation::getProto() const {
       FATAL_ERROR("Must use the overridden NumericCastOperation::getProto");
     case UnaryOperationID::kDateExtract:
       FATAL_ERROR("Must use the overridden DateExtractOperation::getProto");
+    case UnaryOperationID::kSubstring:
+      FATAL_ERROR("Must use the overridden SubstringOperation::getProto");
     default:
       FATAL_ERROR("Unrecognized UnaryOperationID in UnaryOperation::getProto");
   }

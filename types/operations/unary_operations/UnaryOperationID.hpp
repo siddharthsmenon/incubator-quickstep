@@ -33,6 +33,7 @@ enum class UnaryOperationID {
   kNegate = 0,
   kCast,
   kDateExtract,
+  kSubstring,
   kNumUnaryOperationIDs  // Not a real UnaryOperationID, exists for counting purposes.
 };
 

@@ -20,11 +20,11 @@
 namespace quickstep {
 
 const char *kUnaryOperationNames[] = {
-  "Negate", "Cast", "DateExtract"
+  "Negate", "Cast", "DateExtract", "Substring"
 };
 
 const char *kUnaryOperationShortNames[] = {
-  "-", "Cast", "DateExtract"
+  "-", "Cast", "DateExtract", "Substring"
 };
 
 }  // namespace quickstep
