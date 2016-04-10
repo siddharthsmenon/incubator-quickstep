@@ -8,17 +8,13 @@ language: cpp
 
 compiler:
   - clang
-  - gcc
 
 env:
-  - BUILD_TYPE=Debug VECTOR_COPY_ELISION_LEVEL=none
-  - BUILD_TYPE=Release VECTOR_COPY_ELISION_LEVEL=none
   - BUILD_TYPE=Debug VECTOR_COPY_ELISION_LEVEL=joinwithbinaryexpressions
-  - BUILD_TYPE=Release VECTOR_COPY_ELISION_LEVEL=joinwithbinaryexpressions
 
 install:
   - if [ "$VECTOR_COPY_ELISION_LEVEL" = "joinwithbinaryexpressions" ] && [ "$CC" = "gcc" ] && [ "$BUILD_TYPE" = "Debug" ]; then
-      export MAKE_JOBS=1;
+      export MAKE_JOBS=2;
     else
       export MAKE_JOBS=2;
     fi
@@ -30,7 +26,7 @@ install:
       export CC="clang-3.7";
       export CXX="clang++-3.7";
     fi
-  - export DEBUG_FLAGS="-g0";
+  - export DEBUG_FLAGS="-g0 -gsplit-dwarf";
   - export RELEASE_FLAGS="-O0 -DNDEBUG";
   - export LINKER_FLAGS="-s"
   - export CLINKER=`which gold`
