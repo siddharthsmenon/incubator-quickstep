@@ -26,7 +26,7 @@ install:
       export CC="clang-3.7";
       export CXX="clang++-3.7";
     fi
-  - export DEBUG_FLAGS="-g0 --param ggc-min-expand=48 --param ggc-min-heapsize=16000";
+  - export DEBUG_FLAGS="-g0 --param ggc-min-expand=48 --param ggc-min-heapsize=10000";
   - export RELEASE_FLAGS="-O0 -DNDEBUG";
   - export LINKER_FLAGS="-s"
   - export CLINKER=`which gold`
