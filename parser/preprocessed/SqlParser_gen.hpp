@@ -154,9 +154,10 @@ extern int quickstep_yydebug;
     TOKEN_WHEN = 364,
     TOKEN_WHERE = 365,
     TOKEN_WITH = 366,
-    TOKEN_YEARMONTH = 367,
-    TOKEN_EOF = 368,
-    TOKEN_LEX_ERROR = 369
+    TOKEN_YEAR = 367,
+    TOKEN_YEARMONTH = 368,
+    TOKEN_EOF = 369,
+    TOKEN_LEX_ERROR = 370
   };
 #endif
 
@@ -246,7 +247,7 @@ union YYSTYPE
   quickstep::ParseOrderBy *opt_order_by_clause_;
   bool *order_direction_;
   quickstep::ParseLimit *opt_limit_clause_;
-  
+
   quickstep::ParseSample *opt_sample_clause_;
 
   quickstep::PtrList<quickstep::ParseOrderByItem> *order_commalist_;
@@ -255,7 +256,7 @@ union YYSTYPE
   quickstep::PtrVector<quickstep::ParseSubqueryTableReference> *with_list_;
   quickstep::ParseSubqueryTableReference *with_list_element_;
 
-#line 259 "SqlParser_gen.hpp" /* yacc.c:1909  */
+#line 260 "SqlParser_gen.hpp" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
