@@ -34,7 +34,7 @@
 #if defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
 
 /* C99 says to define __STDC_LIMIT_MACROS before including stdint.h,
- * if you want the limit (max/min) macros for int types.
+ * if you want the limit (max/min) macros for int types. 
  */
 #ifndef __STDC_LIMIT_MACROS
 #define __STDC_LIMIT_MACROS 1
@@ -51,7 +51,7 @@ typedef uint32_t flex_uint32_t;
 typedef signed char flex_int8_t;
 typedef short int flex_int16_t;
 typedef int flex_int32_t;
-typedef unsigned char flex_uint8_t;
+typedef unsigned char flex_uint8_t; 
 typedef unsigned short int flex_uint16_t;
 typedef unsigned int flex_uint32_t;
 
@@ -182,7 +182,7 @@ typedef size_t yy_size_t;
 
     /* Note: We specifically omit the test for yy_rule_can_match_eol because it requires
      *       access to the local variable yy_act. Since yyless() is a macro, it would break
-     *       existing scanners that call yyless() from OUTSIDE quickstep_yylex.
+     *       existing scanners that call yyless() from OUTSIDE quickstep_yylex. 
      *       One obvious solution it to make yy_act a global. I tried that, and saw
      *       a 5% performance hit in a non-yylineno scanner, because yy_act is
      *       normally declared as a register variable-- so it is not worth it.
@@ -201,7 +201,7 @@ typedef size_t yy_size_t;
                     if ( *p == '\n' )\
                         --yylineno;\
             }while(0)
-
+    
 /* Return all but the first "n" matched characters back to the input stream. */
 #define yyless(n) \
 	do \
@@ -258,7 +258,7 @@ struct yy_buffer_state
 
     int yy_bs_lineno; /**< The line count. */
     int yy_bs_column; /**< The column count. */
-
+    
 	/* Whether to try to fill the input buffer when we reach the
 	 * end of it.
 	 */
@@ -370,8 +370,8 @@ static void yy_fatal_error (yyconst char msg[] ,yyscan_t yyscanner );
 	*yy_cp = '\0'; \
 	yyg->yy_c_buf_p = yy_cp;
 
-#define YY_NUM_RULES 143
-#define YY_END_OF_BUFFER 144
+#define YY_NUM_RULES 144
+#define YY_END_OF_BUFFER 145
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -382,62 +382,62 @@ struct yy_trans_info
 static yyconst flex_int16_t yy_accept[520] =
     {   0,
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-        0,    0,  144,    2,    2,  142,  142,  141,  140,  142,
-      119,  115,  118,  115,  115,  138,  111,  108,  112,  137,
-      137,  137,  137,  137,  137,  137,  137,  137,  137,  137,
-      137,  137,  137,  137,  137,  137,  137,  137,  137,  137,
-      137,  137,  137,  116,    4,    5,    5,    3,  134,  134,
-      131,  135,  135,  129,  136,  136,  133,    1,  141,  109,
-      139,  138,  138,  138,    0,  113,  110,  114,  137,  137,
-      137,  137,   10,  137,  137,  137,   21,  137,  137,  137,
-      137,  137,  137,  137,  137,  137,  137,  117,  137,  137,
+        0,    0,  145,    2,    2,  143,  143,  142,  141,  143,
+      120,  116,  119,  116,  116,  139,  112,  109,  113,  138,
+      138,  138,  138,  138,  138,  138,  138,  138,  138,  138,
+      138,  138,  138,  138,  138,  138,  138,  138,  138,  138,
+      138,  138,  138,  117,    4,    5,    5,    3,  135,  135,
+      132,  136,  136,  130,  137,  137,  134,    1,  142,  110,
+      140,  139,  139,  139,    0,  114,  111,  115,  138,  138,
+      138,  138,   10,  138,  138,  138,   21,  138,  138,  138,
+      138,  138,  138,  138,  138,  138,  138,  118,  138,  138,
 
-      137,  137,  137,  137,  137,  137,  137,  137,  137,  137,
-      137,   61,  137,  137,  137,  137,  137,  137,  137,  137,
-      137,   73,   74,  137,  137,  137,  137,  137,  137,  137,
-      137,  137,  137,  137,  137,  137,  137,  137,  137,  137,
-      137,  137,  137,  137,  137,  137,    4,    5,    3,  134,
-      130,  135,  128,  128,  120,  122,  123,  124,  125,  126,
-      127,  128,  136,  132,  139,  138,    0,  138,    6,    7,
-      137,    9,   11,  137,  137,   15,  137,  137,  137,  137,
-      137,  137,  137,  137,  137,  137,  137,  137,  137,  137,
-      137,  137,  137,  137,   41,  137,  137,  137,  137,  137,
+      138,  138,  138,  138,  138,  138,  138,  138,  138,  138,
+       54,   62,  138,  138,  138,  138,  138,  138,  138,  138,
+      138,   74,   75,  138,  138,  138,  138,  138,  138,  138,
+      138,  138,  138,  138,  138,  138,  138,  138,  138,  138,
+      138,  138,  138,  138,  138,  138,    4,    5,    3,  135,
+      131,  136,  129,  129,  121,  123,  124,  125,  126,  127,
+      128,  129,  137,  133,  140,  139,    0,  139,    6,    7,
+      138,    9,   11,  138,  138,   15,  138,  138,  138,  138,
+      138,  138,  138,  138,  138,  138,  138,  138,  138,  138,
+      138,  138,  138,  138,   41,  138,  138,  138,  138,  138,
 
-      137,  137,  137,  137,  137,  137,  137,  137,  137,  137,
-       57,  137,   63,  137,  137,  137,  137,  137,   69,  137,
-       72,  137,  137,  137,  137,  137,  137,  137,  137,  137,
-      137,  137,  137,  137,   89,   90,  137,  137,  137,  137,
-      137,  137,  137,  137,  137,  137,  137,  137,  137,  120,
-      122,  121,  137,  137,  137,  137,  137,  137,   19,   22,
-      137,  137,  137,   27,  137,  137,   29,  137,  137,  137,
-      137,   35,  137,  137,   39,   40,  137,  137,  137,  137,
-      137,  137,  137,   49,   50,  137,   52,  137,  137,  137,
-      137,  137,   60,   62,   64,   65,   66,  137,   68,   70,
+      138,  138,  138,  138,  138,  138,  138,  138,  138,  138,
+       58,  138,   64,  138,  138,  138,  138,  138,   70,  138,
+       73,  138,  138,  138,  138,  138,  138,  138,  138,  138,
+      138,  138,  138,  138,   90,   91,  138,  138,  138,  138,
+      138,  138,  138,  138,  138,  138,  138,  138,  138,  121,
+      123,  122,  138,  138,  138,  138,  138,  138,   19,   22,
+      138,  138,  138,   27,  138,  138,   29,  138,  138,  138,
+      138,   35,  138,  138,   39,   40,  138,  138,  138,  138,
+      138,  138,  138,   49,   50,  138,   52,  138,  138,  138,
+      138,  138,   61,   63,   65,   66,   67,  138,   69,   71,
 
-      137,  137,  137,  137,  137,   81,  137,   83,  137,  137,
-      137,  137,  137,  137,  137,   93,   94,   96,  137,  137,
-      137,  137,  137,  137,  103,  137,  105,  106,  120,  121,
-        8,  137,  137,  137,  137,  137,  137,   24,  137,  137,
-      137,  137,  137,  137,  137,  137,  137,  137,  137,  137,
-      137,  137,  137,   45,   46,   47,  137,   51,  137,   54,
-       55,  137,  137,  137,   67,   71,   75,   76,  137,  137,
-      137,   82,  137,  137,   86,  137,  137,  137,   92,  137,
-      137,  137,  137,  100,  137,  137,  104,  137,  137,  137,
-       14,  137,  137,  137,  137,   25,  137,   28,  137,  137,
+      138,  138,  138,  138,  138,   82,  138,   84,  138,  138,
+      138,  138,  138,  138,  138,   94,   95,   97,  138,  138,
+      138,  138,  138,  138,  104,  138,  106,  107,  121,  122,
+        8,  138,  138,  138,  138,  138,  138,   24,  138,  138,
+      138,  138,  138,  138,  138,  138,  138,  138,  138,  138,
+      138,  138,  138,   45,   46,   47,  138,   51,  138,   55,
+       56,  138,  138,  138,   68,   72,   76,   77,  138,  138,
+      138,   83,  138,  138,   87,  138,  138,  138,   93,  138,
+      138,  138,  138,  101,  138,  138,  105,  138,  138,  138,
+       14,  138,  138,  138,  138,   25,  138,   28,  138,  138,
 
-      137,  137,   33,  137,  137,  137,   38,  137,   43,  137,
-      137,   53,   56,  137,  137,  137,  137,  137,  137,   85,
-      137,   88,  137,  137,  137,   98,   99,  101,  137,  137,
-      137,   13,  137,  137,  137,  137,  137,   20,  137,   31,
-       32,  137,  137,  137,  137,   44,   48,   58,  137,  137,
-       79,   80,  137,  137,  137,  137,  137,  102,  137,  137,
-      137,  137,  137,  137,  137,   30,  137,  137,   37,  137,
-       59,  137,  137,  137,   91,  137,  137,  137,   12,  137,
-      137,  137,   23,  137,   34,  137,  137,   77,  137,  137,
-       95,  137,  107,  137,  137,  137,   26,   36,  137,   78,
+      138,  138,   33,  138,  138,  138,   38,  138,   43,  138,
+      138,   53,   57,  138,  138,  138,  138,  138,  138,   86,
+      138,   89,  138,  138,  138,   99,  100,  102,  138,  138,
+      138,   13,  138,  138,  138,  138,  138,   20,  138,   31,
+       32,  138,  138,  138,  138,   44,   48,   59,  138,  138,
+       80,   81,  138,  138,  138,  138,  138,  103,  138,  138,
+      138,  138,  138,  138,  138,   30,  138,  138,   37,  138,
+       60,  138,  138,  138,   92,  138,  138,  138,   12,  138,
+      138,  138,   23,  138,   34,  138,  138,   78,  138,  138,
+       96,  138,  108,  138,  138,  138,   26,   36,  138,   79,
 
-       84,  137,  137,  137,   17,   18,  137,  137,   97,  137,
-      137,  137,  137,  137,   87,  137,   42,   16,    0
+       85,  138,  138,  138,   17,   18,  138,  138,   98,  138,
+      138,  138,  138,  138,   88,  138,   42,   16,    0
     } ;
 
 static yyconst flex_int32_t yy_ec[256] =
@@ -889,16 +889,16 @@ static yyconst flex_int16_t yy_chk[1229] =
     } ;
 
 /* Table of booleans, true if rule could match eol. */
-static yyconst flex_int32_t yy_rule_can_match_eol[144] =
+static yyconst flex_int32_t yy_rule_can_match_eol[145] =
     {   0,
-0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0,
-    1, 0, 0, 0,     };
+0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 
+    0, 1, 0, 0, 0,     };
 
 /* The intent behind this definition is that it'll catch
  * any uses of REJECT which flex missed.
@@ -1078,9 +1078,9 @@ static int yy_init_globals (yyscan_t yyscanner );
     /* This must go here because YYSTYPE and YYLTYPE are included
      * from bison output in section 1.*/
     #    define yylval yyg->yylval_r
-
+    
     #    define yylloc yyg->yylloc_r
-
+    
 int quickstep_yylex_init (yyscan_t* scanner);
 
 int quickstep_yylex_init_extra (YY_EXTRA_TYPE user_defined,yyscan_t* scanner);
@@ -1123,9 +1123,9 @@ YYSTYPE * quickstep_yyget_lval (yyscan_t yyscanner );
 void quickstep_yyset_lval (YYSTYPE * yylval_param ,yyscan_t yyscanner );
 
        YYLTYPE *quickstep_yyget_lloc (yyscan_t yyscanner );
-
+    
         void quickstep_yyset_lloc (YYLTYPE * yylloc_param ,yyscan_t yyscanner );
-
+    
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
  */
@@ -1257,9 +1257,9 @@ extern int quickstep_yylex \
  */
 YY_DECL
 {
-	  yy_state_type yy_current_state;
-	  char *yy_cp, *yy_bp;
-	  int yy_act;
+	register yy_state_type yy_current_state;
+	register char *yy_cp, *yy_bp;
+	register int yy_act;
     struct yyguts_t * yyg = (struct yyguts_t*)yyscanner;
 
     yylval = yylval_param;
@@ -1314,7 +1314,7 @@ YY_DECL
 yy_match:
 		do
 			{
-			YY_CHAR yy_c = yy_ec[YY_SC_TO_UI(*yy_cp)] ;
+			register YY_CHAR yy_c = yy_ec[YY_SC_TO_UI(*yy_cp)] ;
 			if ( yy_accept[yy_current_state] )
 				{
 				yyg->yy_last_accepting_state = yy_current_state;
@@ -1343,7 +1343,7 @@ yy_find_action:
 			yy_size_t yyl;
 			for ( yyl = 0; yyl < yyleng; ++yyl )
 				if ( yytext[yyl] == '\n' )
-
+					   
     do{ yylineno++;
         yycolumn=0;
     }while(0)
@@ -1658,22 +1658,22 @@ return TOKEN_HAVING;
 case 54:
 YY_RULE_SETUP
 #line 215 "../SqlLexer.lpp"
-return TOKEN_INDEX;
+return TOKEN_IN;
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
 #line 216 "../SqlLexer.lpp"
-return TOKEN_INNER;
+return TOKEN_INDEX;
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
 #line 217 "../SqlLexer.lpp"
-return TOKEN_INSERT;
+return TOKEN_INNER;
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
 #line 218 "../SqlLexer.lpp"
-return TOKEN_INTEGER;
+return TOKEN_INSERT;
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
@@ -1683,257 +1683,257 @@ return TOKEN_INTEGER;
 case 59:
 YY_RULE_SETUP
 #line 220 "../SqlLexer.lpp"
-return TOKEN_INTERVAL;
+return TOKEN_INTEGER;
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
 #line 221 "../SqlLexer.lpp"
-return TOKEN_INTO;
+return TOKEN_INTERVAL;
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
 #line 222 "../SqlLexer.lpp"
-return TOKEN_IS;
+return TOKEN_INTO;
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
 #line 223 "../SqlLexer.lpp"
-return TOKEN_JOIN;
+return TOKEN_IS;
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
 #line 224 "../SqlLexer.lpp"
-return TOKEN_KEY;
+return TOKEN_JOIN;
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
 #line 225 "../SqlLexer.lpp"
-return TOKEN_LAST;
+return TOKEN_KEY;
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
 #line 226 "../SqlLexer.lpp"
-return TOKEN_LEFT;
+return TOKEN_LAST;
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
 #line 227 "../SqlLexer.lpp"
-return TOKEN_LIKE;
+return TOKEN_LEFT;
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
 #line 228 "../SqlLexer.lpp"
-return TOKEN_LIMIT;
+return TOKEN_LIKE;
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
 #line 229 "../SqlLexer.lpp"
-return TOKEN_LONG;
+return TOKEN_LIMIT;
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
 #line 230 "../SqlLexer.lpp"
-return TOKEN_NOT;
+return TOKEN_LONG;
 	YY_BREAK
 case 70:
 YY_RULE_SETUP
 #line 231 "../SqlLexer.lpp"
-return TOKEN_NULL;
+return TOKEN_NOT;
 	YY_BREAK
 case 71:
 YY_RULE_SETUP
 #line 232 "../SqlLexer.lpp"
-return TOKEN_NULLS;
+return TOKEN_NULL;
 	YY_BREAK
 case 72:
 YY_RULE_SETUP
 #line 233 "../SqlLexer.lpp"
-return TOKEN_OFF;
+return TOKEN_NULLS;
 	YY_BREAK
 case 73:
 YY_RULE_SETUP
 #line 234 "../SqlLexer.lpp"
-return TOKEN_ON;
+return TOKEN_OFF;
 	YY_BREAK
 case 74:
 YY_RULE_SETUP
 #line 235 "../SqlLexer.lpp"
-return TOKEN_OR;
+return TOKEN_ON;
 	YY_BREAK
 case 75:
 YY_RULE_SETUP
 #line 236 "../SqlLexer.lpp"
-return TOKEN_ORDER;
+return TOKEN_OR;
 	YY_BREAK
 case 76:
 YY_RULE_SETUP
 #line 237 "../SqlLexer.lpp"
-return TOKEN_OUTER;
+return TOKEN_ORDER;
 	YY_BREAK
 case 77:
 YY_RULE_SETUP
 #line 238 "../SqlLexer.lpp"
-return TOKEN_PARTITION;
+return TOKEN_OUTER;
 	YY_BREAK
 case 78:
 YY_RULE_SETUP
 #line 239 "../SqlLexer.lpp"
-return TOKEN_PARTITIONS;
+return TOKEN_PARTITION;
 	YY_BREAK
 case 79:
 YY_RULE_SETUP
 #line 240 "../SqlLexer.lpp"
-return TOKEN_PERCENT;
+return TOKEN_PARTITIONS;
 	YY_BREAK
 case 80:
 YY_RULE_SETUP
 #line 241 "../SqlLexer.lpp"
-return TOKEN_PRIMARY;
+return TOKEN_PERCENT;
 	YY_BREAK
 case 81:
 YY_RULE_SETUP
 #line 242 "../SqlLexer.lpp"
-return TOKEN_QUIT;
+return TOKEN_PRIMARY;
 	YY_BREAK
 case 82:
 YY_RULE_SETUP
 #line 243 "../SqlLexer.lpp"
-return TOKEN_RANGE;
+return TOKEN_QUIT;
 	YY_BREAK
 case 83:
 YY_RULE_SETUP
 #line 244 "../SqlLexer.lpp"
-return TOKEN_REAL;
+return TOKEN_RANGE;
 	YY_BREAK
 case 84:
 YY_RULE_SETUP
 #line 245 "../SqlLexer.lpp"
-return TOKEN_REFERENCES;
+return TOKEN_REAL;
 	YY_BREAK
 case 85:
 YY_RULE_SETUP
 #line 246 "../SqlLexer.lpp"
-return TOKEN_REGEXP;
+return TOKEN_REFERENCES;
 	YY_BREAK
 case 86:
 YY_RULE_SETUP
 #line 247 "../SqlLexer.lpp"
-return TOKEN_RIGHT;
+return TOKEN_REGEXP;
 	YY_BREAK
 case 87:
 YY_RULE_SETUP
 #line 248 "../SqlLexer.lpp"
-return TOKEN_ROW_DELIMITER;
+return TOKEN_RIGHT;
 	YY_BREAK
 case 88:
 YY_RULE_SETUP
 #line 249 "../SqlLexer.lpp"
-return TOKEN_SELECT;
+return TOKEN_ROW_DELIMITER;
 	YY_BREAK
 case 89:
 YY_RULE_SETUP
 #line 250 "../SqlLexer.lpp"
-return TOKEN_SET;
+return TOKEN_SELECT;
 	YY_BREAK
 case 90:
 YY_RULE_SETUP
 #line 251 "../SqlLexer.lpp"
-return TOKEN_SMA;
+return TOKEN_SET;
 	YY_BREAK
 case 91:
 YY_RULE_SETUP
 #line 252 "../SqlLexer.lpp"
-return TOKEN_SMALLINT;
+return TOKEN_SMA;
 	YY_BREAK
 case 92:
 YY_RULE_SETUP
 #line 253 "../SqlLexer.lpp"
-return TOKEN_TABLE;
+return TOKEN_SMALLINT;
 	YY_BREAK
 case 93:
 YY_RULE_SETUP
 #line 254 "../SqlLexer.lpp"
-return TOKEN_THEN;
+return TOKEN_TABLE;
 	YY_BREAK
 case 94:
 YY_RULE_SETUP
 #line 255 "../SqlLexer.lpp"
-return TOKEN_TIME;
+return TOKEN_THEN;
 	YY_BREAK
 case 95:
 YY_RULE_SETUP
 #line 256 "../SqlLexer.lpp"
-return TOKEN_TIMESTAMP;
+return TOKEN_TIME;
 	YY_BREAK
 case 96:
 YY_RULE_SETUP
 #line 257 "../SqlLexer.lpp"
-return TOKEN_TRUE;
+return TOKEN_TIMESTAMP;
 	YY_BREAK
 case 97:
 YY_RULE_SETUP
 #line 258 "../SqlLexer.lpp"
-return TOKEN_TUPLESAMPLE;
+return TOKEN_TRUE;
 	YY_BREAK
 case 98:
 YY_RULE_SETUP
 #line 259 "../SqlLexer.lpp"
-return TOKEN_UNIQUE;
+return TOKEN_TUPLESAMPLE;
 	YY_BREAK
 case 99:
 YY_RULE_SETUP
 #line 260 "../SqlLexer.lpp"
-return TOKEN_UPDATE;
+return TOKEN_UNIQUE;
 	YY_BREAK
 case 100:
 YY_RULE_SETUP
 #line 261 "../SqlLexer.lpp"
-return TOKEN_USING;
+return TOKEN_UPDATE;
 	YY_BREAK
 case 101:
 YY_RULE_SETUP
 #line 262 "../SqlLexer.lpp"
-return TOKEN_VALUES;
+return TOKEN_USING;
 	YY_BREAK
 case 102:
 YY_RULE_SETUP
 #line 263 "../SqlLexer.lpp"
-return TOKEN_VARCHAR;
+return TOKEN_VALUES;
 	YY_BREAK
 case 103:
 YY_RULE_SETUP
 #line 264 "../SqlLexer.lpp"
-return TOKEN_WHEN;
+return TOKEN_VARCHAR;
 	YY_BREAK
 case 104:
 YY_RULE_SETUP
 #line 265 "../SqlLexer.lpp"
-return TOKEN_WHERE;
+return TOKEN_WHEN;
 	YY_BREAK
 case 105:
 YY_RULE_SETUP
 #line 266 "../SqlLexer.lpp"
-return TOKEN_WITH;
+return TOKEN_WHERE;
 	YY_BREAK
 case 106:
 YY_RULE_SETUP
 #line 267 "../SqlLexer.lpp"
-return TOKEN_YEAR;
+return TOKEN_WITH;
 	YY_BREAK
 case 107:
 YY_RULE_SETUP
 #line 268 "../SqlLexer.lpp"
-return TOKEN_YEARMONTH;
+return TOKEN_YEAR;
 	YY_BREAK
 case 108:
 YY_RULE_SETUP
-#line 270 "../SqlLexer.lpp"
-return TOKEN_EQ;
+#line 269 "../SqlLexer.lpp"
+return TOKEN_YEARMONTH;
 	YY_BREAK
 case 109:
 YY_RULE_SETUP
 #line 271 "../SqlLexer.lpp"
-return TOKEN_NEQ;
+return TOKEN_EQ;
 	YY_BREAK
 case 110:
 YY_RULE_SETUP
@@ -1943,56 +1943,61 @@ return TOKEN_NEQ;
 case 111:
 YY_RULE_SETUP
 #line 273 "../SqlLexer.lpp"
-return TOKEN_LT;
+return TOKEN_NEQ;
 	YY_BREAK
 case 112:
 YY_RULE_SETUP
 #line 274 "../SqlLexer.lpp"
-return TOKEN_GT;
+return TOKEN_LT;
 	YY_BREAK
 case 113:
 YY_RULE_SETUP
 #line 275 "../SqlLexer.lpp"
-return TOKEN_LEQ;
+return TOKEN_GT;
 	YY_BREAK
 case 114:
 YY_RULE_SETUP
 #line 276 "../SqlLexer.lpp"
-return TOKEN_GEQ;
+return TOKEN_LEQ;
 	YY_BREAK
 case 115:
 YY_RULE_SETUP
-#line 278 "../SqlLexer.lpp"
-return yytext[0];
+#line 277 "../SqlLexer.lpp"
+return TOKEN_GEQ;
 	YY_BREAK
 case 116:
 YY_RULE_SETUP
 #line 279 "../SqlLexer.lpp"
 return yytext[0];
 	YY_BREAK
+case 117:
+YY_RULE_SETUP
+#line 280 "../SqlLexer.lpp"
+return yytext[0];
+	YY_BREAK
 /**
     * Quoted strings. Prefacing a string with an 'e' or 'E' causes escape
     * sequences to be processed (as in PostgreSQL).
     **/
-case 117:
+case 118:
 YY_RULE_SETUP
-#line 285 "../SqlLexer.lpp"
+#line 286 "../SqlLexer.lpp"
 {
     yylval->string_value_ = new quickstep::ParseString(yylloc->first_line, yylloc->first_column);
     BEGIN(CONDITION_STRING_SINGLE_QUOTED_ESCAPED);
   }
 	YY_BREAK
-case 118:
+case 119:
 YY_RULE_SETUP
-#line 290 "../SqlLexer.lpp"
+#line 291 "../SqlLexer.lpp"
 {
     yylval->string_value_ = new quickstep::ParseString(yylloc->first_line, yylloc->first_column);
     BEGIN(CONDITION_STRING_SINGLE_QUOTED);
   }
 	YY_BREAK
-case 119:
+case 120:
 YY_RULE_SETUP
-#line 295 "../SqlLexer.lpp"
+#line 296 "../SqlLexer.lpp"
 {
     yylval->string_value_ = new quickstep::ParseString(yylloc->first_line, yylloc->first_column);
     BEGIN(CONDITION_STRING_DOUBLE_QUOTED);
@@ -2004,7 +2009,7 @@ YY_RULE_SETUP
 case YY_STATE_EOF(CONDITION_STRING_SINGLE_QUOTED):
 case YY_STATE_EOF(CONDITION_STRING_SINGLE_QUOTED_ESCAPED):
 case YY_STATE_EOF(CONDITION_STRING_DOUBLE_QUOTED):
-#line 304 "../SqlLexer.lpp"
+#line 305 "../SqlLexer.lpp"
 {
     delete yylval->string_value_;
     BEGIN(INITIAL);
@@ -2015,9 +2020,9 @@ case YY_STATE_EOF(CONDITION_STRING_DOUBLE_QUOTED):
 
 /* Process escape sequences. */
 
-case 120:
+case 121:
 YY_RULE_SETUP
-#line 314 "../SqlLexer.lpp"
+#line 315 "../SqlLexer.lpp"
 {
     /* Octal code */
     unsigned int code;
@@ -2031,9 +2036,9 @@ YY_RULE_SETUP
     yylval->string_value_->push_back(code);
   }
 	YY_BREAK
-case 121:
+case 122:
 YY_RULE_SETUP
-#line 326 "../SqlLexer.lpp"
+#line 327 "../SqlLexer.lpp"
 {
     /* Hexadecimal code */
     unsigned int code;
@@ -2041,9 +2046,9 @@ YY_RULE_SETUP
     yylval->string_value_->push_back(code);
   }
 	YY_BREAK
-case 122:
+case 123:
 YY_RULE_SETUP
-#line 332 "../SqlLexer.lpp"
+#line 333 "../SqlLexer.lpp"
 {
     /* A numeric escape sequence that isn't correctly specified. */
     delete yylval->string_value_;
@@ -2052,58 +2057,58 @@ YY_RULE_SETUP
     return TOKEN_LEX_ERROR;
   }
 	YY_BREAK
-case 123:
+case 124:
 YY_RULE_SETUP
-#line 339 "../SqlLexer.lpp"
+#line 340 "../SqlLexer.lpp"
 {
     /* Backspace */
     yylval->string_value_->push_back('\b');
   }
 	YY_BREAK
-case 124:
+case 125:
 YY_RULE_SETUP
-#line 343 "../SqlLexer.lpp"
+#line 344 "../SqlLexer.lpp"
 {
     /* Form-feed */
     yylval->string_value_->push_back('\f');
   }
 	YY_BREAK
-case 125:
+case 126:
 YY_RULE_SETUP
-#line 347 "../SqlLexer.lpp"
+#line 348 "../SqlLexer.lpp"
 {
     /* Newline */
     yylval->string_value_->push_back('\n');
   }
 	YY_BREAK
-case 126:
+case 127:
 YY_RULE_SETUP
-#line 351 "../SqlLexer.lpp"
+#line 352 "../SqlLexer.lpp"
 {
     /* Carriage-return */
     yylval->string_value_->push_back('\r');
   }
 	YY_BREAK
-case 127:
+case 128:
 YY_RULE_SETUP
-#line 355 "../SqlLexer.lpp"
+#line 356 "../SqlLexer.lpp"
 {
     /* Horizontal Tab */
     yylval->string_value_->push_back('\t');
   }
 	YY_BREAK
-case 128:
-/* rule 128 can match eol */
+case 129:
+/* rule 129 can match eol */
 YY_RULE_SETUP
-#line 359 "../SqlLexer.lpp"
+#line 360 "../SqlLexer.lpp"
 {
     /* Any other character (including actual newline or carriage return) */
     yylval->string_value_->push_back(yytext[1]);
   }
 	YY_BREAK
-case 129:
+case 130:
 YY_RULE_SETUP
-#line 363 "../SqlLexer.lpp"
+#line 364 "../SqlLexer.lpp"
 {
     /* This should only be encountered right before an EOF. */
     delete yylval->string_value_;
@@ -2114,17 +2119,17 @@ YY_RULE_SETUP
 	YY_BREAK
 
 
-case 130:
+case 131:
 YY_RULE_SETUP
-#line 373 "../SqlLexer.lpp"
+#line 374 "../SqlLexer.lpp"
 {
     /* Two quotes in a row become a single quote (this is specified by the SQL standard). */
     yylval->string_value_->push_back('\'');
   }
 	YY_BREAK
-case 131:
+case 132:
 YY_RULE_SETUP
-#line 377 "../SqlLexer.lpp"
+#line 378 "../SqlLexer.lpp"
 {
     /* End string */
     BEGIN(CONDITION_SQL);
@@ -2133,17 +2138,17 @@ YY_RULE_SETUP
 	YY_BREAK
 
 
-case 132:
+case 133:
 YY_RULE_SETUP
-#line 385 "../SqlLexer.lpp"
+#line 386 "../SqlLexer.lpp"
 {
     /* Two quotes in a row become a single quote (this is specified by the SQL standard). */
     yylval->string_value_->push_back('"');
   }
 	YY_BREAK
-case 133:
+case 134:
 YY_RULE_SETUP
-#line 389 "../SqlLexer.lpp"
+#line 390 "../SqlLexer.lpp"
 {
     /* End string */
     BEGIN(CONDITION_SQL);
@@ -2151,94 +2156,94 @@ YY_RULE_SETUP
   }
 	YY_BREAK
 
-case 134:
-/* rule 134 can match eol */
-YY_RULE_SETUP
-#line 396 "../SqlLexer.lpp"
-{
-  /* Scan up to a quote. */
-  yylval->string_value_->append(yytext, yyleng);
-}
-	YY_BREAK
 case 135:
 /* rule 135 can match eol */
 YY_RULE_SETUP
-#line 401 "../SqlLexer.lpp"
+#line 397 "../SqlLexer.lpp"
 {
-  /* Scan up to a quote or escape sequence. */
+  /* Scan up to a quote. */
   yylval->string_value_->append(yytext, yyleng);
 }
 	YY_BREAK
 case 136:
 /* rule 136 can match eol */
 YY_RULE_SETUP
-#line 406 "../SqlLexer.lpp"
+#line 402 "../SqlLexer.lpp"
+{
+  /* Scan up to a quote or escape sequence. */
+  yylval->string_value_->append(yytext, yyleng);
+}
+	YY_BREAK
+case 137:
+/* rule 137 can match eol */
+YY_RULE_SETUP
+#line 407 "../SqlLexer.lpp"
 {
   /* Scan up to a quote. */
   yylval->string_value_->append(yytext, yyleng);
 }
 	YY_BREAK
 
-case 137:
+case 138:
 YY_RULE_SETUP
-#line 412 "../SqlLexer.lpp"
+#line 413 "../SqlLexer.lpp"
 {
     yylval->string_value_ = new quickstep::ParseString(
         yylloc->first_line, yylloc->first_column, std::string(yytext, yyleng));
     return TOKEN_NAME;
   }
 	YY_BREAK
-case 138:
+case 139:
 YY_RULE_SETUP
-#line 418 "../SqlLexer.lpp"
+#line 419 "../SqlLexer.lpp"
 {
     yylval->numeric_literal_value_ = new quickstep::NumericParseLiteralValue(
         yylloc->first_line, yylloc->first_column, yytext);
     return TOKEN_UNSIGNED_NUMVAL;
   }
 	YY_BREAK
-case 139:
+case 140:
 YY_RULE_SETUP
-#line 424 "../SqlLexer.lpp"
+#line 425 "../SqlLexer.lpp"
 /* comment */
 	YY_BREAK
-case 140:
-/* rule 140 can match eol */
+case 141:
+/* rule 141 can match eol */
 YY_RULE_SETUP
-#line 426 "../SqlLexer.lpp"
+#line 427 "../SqlLexer.lpp"
 { yycolumn = 0; }
 	YY_BREAK
-case 141:
+case 142:
 YY_RULE_SETUP
-#line 428 "../SqlLexer.lpp"
+#line 429 "../SqlLexer.lpp"
 ; /* ignore white space */
 	YY_BREAK
 /* CONDITION_SQL */
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(CONDITION_COMMAND):
 case YY_STATE_EOF(CONDITION_SQL):
-#line 432 "../SqlLexer.lpp"
+#line 433 "../SqlLexer.lpp"
 {
   /* All conditions except for mutli-state string extracting conditions. */
   BEGIN(INITIAL);
   return TOKEN_EOF;
 }
 	YY_BREAK
-case 142:
+case 143:
 YY_RULE_SETUP
-#line 438 "../SqlLexer.lpp"
+#line 439 "../SqlLexer.lpp"
 {
   BEGIN(INITIAL);
   quickstep_yyerror(NULL, yyscanner, NULL, "illegal character");
   return TOKEN_LEX_ERROR;
 }
 	YY_BREAK
-case 143:
+case 144:
 YY_RULE_SETUP
-#line 444 "../SqlLexer.lpp"
+#line 445 "../SqlLexer.lpp"
 YY_FATAL_ERROR( "flex scanner jammed" );
 	YY_BREAK
-#line 2242 "SqlLexer_gen.cpp"
+#line 2247 "SqlLexer_gen.cpp"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2380,10 +2385,10 @@ YY_FATAL_ERROR( "flex scanner jammed" );
  */
 static int yy_get_next_buffer (yyscan_t yyscanner)
 {
-  struct yyguts_t * yyg = (struct yyguts_t*)yyscanner;
-	char *dest = YY_CURRENT_BUFFER_LVALUE->yy_ch_buf;
-	char *source = yyg->yytext_ptr;
-	int number_to_move, i;
+    struct yyguts_t * yyg = (struct yyguts_t*)yyscanner;
+	register char *dest = YY_CURRENT_BUFFER_LVALUE->yy_ch_buf;
+	register char *source = yyg->yytext_ptr;
+	register int number_to_move, i;
 	int ret_val;
 
 	if ( yyg->yy_c_buf_p > &YY_CURRENT_BUFFER_LVALUE->yy_ch_buf[yyg->yy_n_chars + 1] )
@@ -2515,15 +2520,15 @@ static int yy_get_next_buffer (yyscan_t yyscanner)
 
     static yy_state_type yy_get_previous_state (yyscan_t yyscanner)
 {
-	yy_state_type yy_current_state;
-	char *yy_cp;
-  struct yyguts_t * yyg = (struct yyguts_t*)yyscanner;
+	register yy_state_type yy_current_state;
+	register char *yy_cp;
+    struct yyguts_t * yyg = (struct yyguts_t*)yyscanner;
 
 	yy_current_state = yyg->yy_start;
 
 	for ( yy_cp = yyg->yytext_ptr + YY_MORE_ADJ; yy_cp < yyg->yy_c_buf_p; ++yy_cp )
 		{
-		YY_CHAR yy_c = (*yy_cp ? yy_ec[YY_SC_TO_UI(*yy_cp)] : 1);
+		register YY_CHAR yy_c = (*yy_cp ? yy_ec[YY_SC_TO_UI(*yy_cp)] : 1);
 		if ( yy_accept[yy_current_state] )
 			{
 			yyg->yy_last_accepting_state = yy_current_state;
@@ -2548,11 +2553,11 @@ static int yy_get_next_buffer (yyscan_t yyscanner)
  */
     static yy_state_type yy_try_NUL_trans  (yy_state_type yy_current_state , yyscan_t yyscanner)
 {
-	int yy_is_jam;
-  struct yyguts_t * yyg = (struct yyguts_t*)yyscanner; /* This var may be unused depending upon options. */
-	char *yy_cp = yyg->yy_c_buf_p;
+	register int yy_is_jam;
+    struct yyguts_t * yyg = (struct yyguts_t*)yyscanner; /* This var may be unused depending upon options. */
+	register char *yy_cp = yyg->yy_c_buf_p;
 
-	YY_CHAR yy_c = 1;
+	register YY_CHAR yy_c = 1;
 	if ( yy_accept[yy_current_state] )
 		{
 		yyg->yy_last_accepting_state = yy_current_state;
@@ -2643,7 +2648,7 @@ static int yy_get_next_buffer (yyscan_t yyscanner)
 	yyg->yy_hold_char = *++yyg->yy_c_buf_p;
 
 	if ( c == '\n' )
-
+		   
     do{ yylineno++;
         yycolumn=0;
     }while(0)
@@ -2726,7 +2731,7 @@ static void quickstep_yy_load_buffer_state  (yyscan_t yyscanner)
     YY_BUFFER_STATE quickstep_yy_create_buffer  (FILE * file, int  size , yyscan_t yyscanner)
 {
 	YY_BUFFER_STATE b;
-
+    
 	b = (YY_BUFFER_STATE) quickstep_yyalloc(sizeof( struct yy_buffer_state ) ,yyscanner );
 	if ( ! b )
 		YY_FATAL_ERROR( "out of dynamic memory in quickstep_yy_create_buffer()" );
@@ -2792,7 +2797,7 @@ static void quickstep_yy_load_buffer_state  (yyscan_t yyscanner)
     }
 
         b->yy_is_interactive = 0;
-
+    
 	errno = oerrno;
 }
 
@@ -2898,9 +2903,9 @@ static void quickstep_yyensure_buffer_stack (yyscan_t yyscanner)
 								, yyscanner);
 		if ( ! yyg->yy_buffer_stack )
 			YY_FATAL_ERROR( "out of dynamic memory in quickstep_yyensure_buffer_stack()" );
-
+								  
 		memset(yyg->yy_buffer_stack, 0, num_to_alloc * sizeof(struct yy_buffer_state*));
-
+				
 		yyg->yy_buffer_stack_max = num_to_alloc;
 		yyg->yy_buffer_stack_top = 0;
 		return;
@@ -2929,12 +2934,12 @@ static void quickstep_yyensure_buffer_stack (yyscan_t yyscanner)
  * @param base the character buffer
  * @param size the size in bytes of the character buffer
  * @param yyscanner The scanner object.
- * @return the newly allocated buffer state object.
+ * @return the newly allocated buffer state object. 
  */
 YY_BUFFER_STATE quickstep_yy_scan_buffer  (char * base, yy_size_t  size , yyscan_t yyscanner)
 {
 	YY_BUFFER_STATE b;
-
+    
 	if ( size < 2 ||
 	     base[size-2] != YY_END_OF_BUFFER_CHAR ||
 	     base[size-1] != YY_END_OF_BUFFER_CHAR )
@@ -2970,7 +2975,7 @@ YY_BUFFER_STATE quickstep_yy_scan_buffer  (char * base, yy_size_t  size , yyscan
  */
 YY_BUFFER_STATE quickstep_yy_scan_string (yyconst char * yystr , yyscan_t yyscanner)
 {
-
+    
 	return quickstep_yy_scan_bytes(yystr,strlen(yystr) ,yyscanner);
 }
 
@@ -2987,7 +2992,7 @@ YY_BUFFER_STATE quickstep_yy_scan_bytes  (yyconst char * yybytes, yy_size_t  _yy
 	char *buf;
 	yy_size_t n;
 	yy_size_t i;
-
+    
 	/* Get memory for full buffer, including space for trailing EOB's. */
 	n = _yybytes_len + 2;
 	buf = (char *) quickstep_yyalloc(n ,yyscanner );
@@ -3055,10 +3060,10 @@ YY_EXTRA_TYPE quickstep_yyget_extra  (yyscan_t yyscanner)
 int quickstep_yyget_lineno  (yyscan_t yyscanner)
 {
     struct yyguts_t * yyg = (struct yyguts_t*)yyscanner;
-
+    
         if (! YY_CURRENT_BUFFER)
             return 0;
-
+    
     return yylineno;
 }
 
@@ -3068,10 +3073,10 @@ int quickstep_yyget_lineno  (yyscan_t yyscanner)
 int quickstep_yyget_column  (yyscan_t yyscanner)
 {
     struct yyguts_t * yyg = (struct yyguts_t*)yyscanner;
-
+    
         if (! YY_CURRENT_BUFFER)
             return 0;
-
+    
     return yycolumn;
 }
 
@@ -3133,7 +3138,7 @@ void quickstep_yyset_lineno (int  line_number , yyscan_t yyscanner)
         /* lineno is only valid if an input buffer exists. */
         if (! YY_CURRENT_BUFFER )
            YY_FATAL_ERROR( "quickstep_yyset_lineno called with no buffer" );
-
+    
     yylineno = line_number;
 }
 
@@ -3148,7 +3153,7 @@ void quickstep_yyset_column (int  column_no , yyscan_t yyscanner)
         /* column is only valid if an input buffer exists. */
         if (! YY_CURRENT_BUFFER )
            YY_FATAL_ERROR( "quickstep_yyset_column called with no buffer" );
-
+    
     yycolumn = column_no;
 }
 
@@ -3201,13 +3206,13 @@ YYLTYPE *quickstep_yyget_lloc  (yyscan_t yyscanner)
     struct yyguts_t * yyg = (struct yyguts_t*)yyscanner;
     return yylloc;
 }
-
+    
 void quickstep_yyset_lloc (YYLTYPE *  yylloc_param , yyscan_t yyscanner)
 {
     struct yyguts_t * yyg = (struct yyguts_t*)yyscanner;
     yylloc = yylloc_param;
 }
-
+    
 /* User-visible API */
 
 /* quickstep_yylex_init is special because it creates the scanner itself, so it is
@@ -3255,20 +3260,20 @@ int quickstep_yylex_init_extra(YY_EXTRA_TYPE yy_user_defined,yyscan_t* ptr_yy_gl
         errno = EINVAL;
         return 1;
     }
-
+	
     *ptr_yy_globals = (yyscan_t) quickstep_yyalloc ( sizeof( struct yyguts_t ), &dummy_yyguts );
-
+	
     if (*ptr_yy_globals == NULL){
         errno = ENOMEM;
         return 1;
     }
-
+    
     /* By setting to 0xAA, we expose bugs in
     yy_init_globals. Leave at 0x00 for releases. */
     memset(*ptr_yy_globals,0x00,sizeof(struct yyguts_t));
-
+    
     quickstep_yyset_extra (yy_user_defined, *ptr_yy_globals);
-
+    
     return yy_init_globals ( *ptr_yy_globals );
 }
 
@@ -3342,7 +3347,7 @@ int quickstep_yylex_destroy  (yyscan_t yyscanner)
 #ifndef yytext_ptr
 static void yy_flex_strncpy (char* s1, yyconst char * s2, int n , yyscan_t yyscanner)
 {
-	int i;
+	register int i;
 	for ( i = 0; i < n; ++i )
 		s1[i] = s2[i];
 }
@@ -3351,7 +3356,7 @@ static void yy_flex_strncpy (char* s1, yyconst char * s2, int n , yyscan_t yysca
 #ifdef YY_NEED_STRLEN
 static int yy_flex_strlen (yyconst char * s , yyscan_t yyscanner)
 {
-	int n;
+	register int n;
 	for ( n = 0; s[n]; ++n )
 		;
 
@@ -3383,7 +3388,7 @@ void quickstep_yyfree (void * ptr , yyscan_t yyscanner)
 
 #define YYTABLES_NAME "yytables"
 
-#line 444 "../SqlLexer.lpp"
+#line 445 "../SqlLexer.lpp"
 
 
 
