@@ -42,7 +42,8 @@ namespace expressions {
 std::vector<AttributeReferencePtr> SubqueryExpression::getReferencedAttributes() const {
   // SubqueryExpression should be eliminated before any place that needs
   // a call of getReferencedAttributes.
-  LOG(FATAL) << "SubqueryExpression::getReferencedAttributes() is not implemented";
+  // LOG(FATAL) << "SubqueryExpression::getReferencedAttributes() is not implemented";
+  return {};
 }
 
 void SubqueryExpression::getFieldStringItems(
