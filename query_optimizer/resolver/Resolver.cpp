@@ -19,6 +19,7 @@
 
 #include "query_optimizer/resolver/Resolver.hpp"
 
+#include <algorithm>
 #include <map>
 #include <memory>
 #include <set>
@@ -42,6 +43,7 @@
 #include "parser/ParseGeneratorTableReference.hpp"
 #include "parser/ParseGroupBy.hpp"
 #include "parser/ParseHaving.hpp"
+#include "parser/ParseJoinedTableReference.hpp"
 #include "parser/ParseLimit.hpp"
 #include "parser/ParseLiteralValue.hpp"
 #include "parser/ParseOrderBy.hpp"
@@ -89,6 +91,7 @@
 #include "query_optimizer/logical/DeleteTuples.hpp"
 #include "query_optimizer/logical/DropTable.hpp"
 #include "query_optimizer/logical/Filter.hpp"
+#include "query_optimizer/logical/HashJoin.hpp"
 #include "query_optimizer/logical/InsertSelection.hpp"
 #include "query_optimizer/logical/InsertTuple.hpp"
 #include "query_optimizer/logical/MultiwayCartesianJoin.hpp"
@@ -1467,6 +1470,16 @@ L::LogicalPtr Resolver::resolveTableReference(const ParseTableReference &table_r
       name_resolver->addRelation(reference_alias, logical_plan);
       break;
     }
+    case ParseTableReference::kJoinedTableReference: {
+      NameResolver joined_table_name_resolver;
+
+      logical_plan = resolveJoinedTableReference(
+          static_cast<const ParseJoinedTableReference&>(table_reference),
+          &joined_table_name_resolver);
+
+      name_resolver->merge(&joined_table_name_resolver);
+      break;
+    }
     default:
       LOG(FATAL) << "Unhandeled table reference " << table_reference.toString();
   }
@@ -1591,6 +1604,57 @@ L::LogicalPtr Resolver::resolveGeneratorTableReference(
                                    context_);
 }
 
+
+L::LogicalPtr Resolver::resolveJoinedTableReference(
+    const ParseJoinedTableReference &joined_table_reference,
+    NameResolver *name_resolver) {
+  std::size_t start_relation_idx_for_left = name_resolver->nextScopedRelationPosition();
+  L::LogicalPtr left_table =
+      resolveTableReference(*joined_table_reference.left_table(), name_resolver);
+
+  std::size_t start_relation_idx_for_right = name_resolver->nextScopedRelationPosition();
+  L::LogicalPtr right_table =
+      resolveTableReference(*joined_table_reference.right_table(), name_resolver);
+
+  std::size_t end_relation_idx = name_resolver->nextScopedRelationPosition();
+
+  ExpressionResolutionInfo resolution_info(*name_resolver,
+                                           "join clause" /* clause_name */,
+                                           nullptr /* select_list_info */);
+  const E::PredicatePtr on_predicate =
+      resolvePredicate(*joined_table_reference.join_predicate(), &resolution_info);
+
+  switch (joined_table_reference.join_type()) {
+    case ParseJoinedTableReference::JoinType::kInnerJoin: {
+      return L::Filter::Create(
+          L::MultiwayCartesianJoin::Create({ left_table, right_table }),
+          on_predicate);
+    }
+    case ParseJoinedTableReference::JoinType::kRightOuterJoin: {
+      // Swap the two tables so it becomes a left outer join.
+      std::swap(left_table, right_table);
+      end_relation_idx = start_relation_idx_for_right;
+      start_relation_idx_for_right = start_relation_idx_for_left;
+    }  // Fall through
+    case ParseJoinedTableReference::JoinType::kLeftOuterJoin: {
+      name_resolver->makeOutputAttributesNullable(start_relation_idx_for_right,
+                                                  end_relation_idx);
+
+      // left_join_attributes and right_join_attributes will be identified by
+      // GenerateJoins during logical optimization.
+      return L::HashJoin::Create(left_table,
+                                 right_table,
+                                 {} /* left_join_attributes */,
+                                 {} /* right_join_attributes */,
+                                 on_predicate,
+                                 L::HashJoin::JoinType::kLeftOuterJoin);
+    }
+    default:
+      break;
+  }
+
+  THROW_SQL_ERROR_AT(&joined_table_reference) << "Full outer join is not supported yet";
+}
 
 void Resolver::resolveSelectClause(
     const ParseSelectionClause &parse_selection,

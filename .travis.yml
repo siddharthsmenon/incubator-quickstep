@@ -8,6 +8,8 @@
 
 language: cpp
 
+cache: ccache
+
 compiler:
   - gcc
   - clang
@@ -83,6 +85,7 @@ addons:
       - binutils-gold
       - libprotobuf-dev
       - protobuf-compiler
+      - libgtest-dev
       - python-networkx
       - libnuma-dev
 
