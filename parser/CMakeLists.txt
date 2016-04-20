@@ -138,7 +138,8 @@ target_link_libraries(quickstep_parser_ParseBasicExpressions
                       quickstep_types_operations_binaryoperations_BinaryOperation
                       quickstep_types_operations_unaryoperations_UnaryOperation
                       quickstep_utility_Macros
-                      quickstep_utility_PtrList)
+                      quickstep_utility_PtrList
+                      quickstep_utility_SqlError)
 target_link_libraries(quickstep_parser_ParseBlockProperties
                       glog
                       quickstep_parser_ParseKeyValue
