@@ -37,6 +37,7 @@
 #include "types/Type.hpp"
 #include "types/VarCharType.hpp"
 #include "types/YearMonthIntervalType.hpp"
+#include "utility/SqlError.hpp"
 
 #include "glog/logging.h"
 
@@ -120,6 +121,34 @@ void NumericParseLiteralValue::getFieldStringItems(
 
   inline_field_names->push_back("float_like");
   inline_field_values->push_back(float_like_ ? "true" : "false");
+}
+
+bool StringParseLiteralValue::ParseInterval(
+    ParseString *value,
+    ParseString *datetime_type,
+    StringParseLiteralValue **output) {
+  const std::string& datetime_type_value = datetime_type->value();
+  *output = new StringParseLiteralValue(
+      &(value->append((" " + datetime_type_value).c_str(),
+                      datetime_type_value.length() + 1)),
+      nullptr);
+  if (datetime_type_value == "year" || datetime_type_value == "month") {
+    (*output)->explicit_type_ = &YearMonthIntervalType::InstanceNonNullable();
+  } else if (datetime_type_value == "day" || datetime_type_value == "hour" ||
+             datetime_type_value == "minute" ||
+             datetime_type_value == "second") {
+    (*output)->explicit_type_ = &DatetimeIntervalType::InstanceNonNullable();
+  } else {
+    THROW_SQL_ERROR_AT(datetime_type)
+        << "Invalid datetime unit: " << datetime_type_value;
+  }
+
+  if ((*output)->tryExplicitTypeParse()) {
+    return true;
+  }
+  delete *output;
+  *output = nullptr;
+  return false;
 }
 
 bool StringParseLiteralValue::ParseAmbiguousInterval(
