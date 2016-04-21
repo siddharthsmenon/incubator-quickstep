@@ -1636,7 +1636,10 @@ literal_value:
   }
   | TOKEN_INTERVAL TOKEN_STRING_SINGLE_QUOTED datetime_unit {
     quickstep::StringParseLiteralValue *parse_value;
-    if (quickstep::StringParseLiteralValue::ParseInterval($2, $3, &parse_value)) {
+    const std::string& datetime_type_value = $3->value();
+    if (quickstep::StringParseLiteralValue::ParseAmbiguousInterval(&($2->append((" " +
+        datetime_type_value).c_str(), datetime_type_value.length() + 1)),
+        &parse_value)) {
       $$ = parse_value;
     } else {
       $$ = nullptr;

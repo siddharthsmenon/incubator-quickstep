@@ -138,8 +138,7 @@ target_link_libraries(quickstep_parser_ParseBasicExpressions
                       quickstep_types_operations_binaryoperations_BinaryOperation
                       quickstep_types_operations_unaryoperations_UnaryOperation
                       quickstep_utility_Macros
-                      quickstep_utility_PtrList
-                      quickstep_utility_SqlError)
+                      quickstep_utility_PtrList)
 target_link_libraries(quickstep_parser_ParseBlockProperties
                       glog
                       quickstep_parser_ParseKeyValue
@@ -200,7 +199,8 @@ target_link_libraries(quickstep_parser_ParseLiteralValue
                       quickstep_types_TypedValue
                       quickstep_types_VarCharType
                       quickstep_types_YearMonthIntervalType
-                      quickstep_utility_Macros)
+                      quickstep_utility_Macros
+                      quickstep_utility_SqlError)
 target_link_libraries(quickstep_parser_ParseOrderBy
                       quickstep_parser_ParseExpression
                       quickstep_parser_ParseTreeNode

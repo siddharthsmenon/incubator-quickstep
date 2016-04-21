@@ -288,37 +288,8 @@ class StringParseLiteralValue : public ParseLiteralValue {
    *         types, false otherwise.
    **/
   static bool ParseAmbiguousInterval(ParseString *value,
-
-    /**
-   * @brief Parse an interval literal that was specified
-   *        in the form "INTERVAL 'value' INTERVAL_UNIT" in SQL syntax.
-   * @note There are two distinct INTERVAL Types in Quickstep:
-   *       DatetimeInterval ("DATETIME INTERVAL" in SQL) and YearMonthInterval
-   *       ("YEARMONTH INTERVAL" in SQL). The INTERVAL keyword by itself is
-   *       ambiguous and does not name a Type, however the text formats for
-   *       literals of the two different interval Types are distinct and
-   *       non-overlapping, so if a valid interval literal string and interval unit
-   *       follows the INTERVAL keyword, the Type can be determined unambiguously. This
-   *       method does just that, allowing the SQL parser to be more forgiving
-   *       when interval literals don't specify the flavor of interval
-   *       up-front.
-   *
-   * @param value A string literal that followed an INTERVAL keyword in SQL
-   *        syntax. On successful parse, this becomes owned by the parsed
-   *        StringParseLiteralValue. On failure, it is deleted.
-   * @param datetime_type A string literal indcating the type of the interval
-   *        unit passed. The datetime_type can be one of the following types:
-   *        "year, month, day, hour, minute, second"
-   * @param output On successful parse, *output is overwritten to point to a
-   *        new heap-allocated StringParseLiteralValue representing the parsed
-   *        interval literal.
-   * @return true if value was successfully parsed as either of the interval
-   *         types, false otherwise.
-   **/                                   StringParseLiteralValue **output);
-  static bool ParseInterval(ParseString *value,
-                            ParseString *datetime_type,
-                            StringParseLiteralValue **output);
-  /**
+                                     StringParseLiteralValue **output);
+   /**
    * @note The rules for what type this literal is resolved as depend on
    *       whether an explicit_type_ from the SQL context exists, and whether
    *       a type_hint is provided. Specifically, they are:
